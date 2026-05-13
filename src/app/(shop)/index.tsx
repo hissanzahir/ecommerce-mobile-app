@@ -1,18 +1,33 @@
-import { FlatList,StyleSheet, Text, View } from 'react-native';
-import { PRODUCTS } from '../../../assets/products';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-const index = () => {
+import { PRODUCTS } from '../../../assets/products';
+import {ProductListItem} from '../../components/Product-List-Item';
+import { ListHeader } from '../../components/list-header';
+
+const Home = () => {
   return (
     <View>
       <FlatList 
       data={PRODUCTS} 
-      renderItem={({ item }) => <View> </View>}
-      
+      renderItem={({ item }) => <ProductListItem product={item} />}
+      keyExtractor={item => item.id.toString()}
+      numColumns={2}
+      ListHeaderComponent={ListHeader}
+      contentContainerStyle={styles.flatListContent}
+      columnWrapperStyle={styles.flatListColumn}
+      style={ { paddingHorizontal: 10, paddingVertical: 5 } }
       />
     </View>
-  )
-}
+  );
+};
 
-export default index
+export default Home;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  flatListContent: {
+    paddingBottom: 20,
+  },
+  flatListColumn: {
+    justifyContent: 'space-between',
+  },
+});
