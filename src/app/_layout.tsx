@@ -1,15 +1,11 @@
 import { Stack } from 'expo-router';
+import { ToastProvider } from 'react-native-toast-notifications';
 
-/* This enables:
-screens (pages)
-navigation history
-back button
-transitions
-*/
 
 export default function RootLayout() {
   return (
-    <Stack>
+    <ToastProvider>
+      <Stack>
       <Stack.Screen
         name='(shop)'
         options={{ headerShown: false, title: 'Shop' }}
@@ -22,14 +18,18 @@ export default function RootLayout() {
 
       <Stack.Screen
         name='product'
-        options={{ headerShown: true, title: 'Product' }}
+        options={{ headerShown: false, title: 'Product' }}
       />
 
       <Stack.Screen
         name='cart'
-        options={{ presentation: 'modal', title: 'Shopping Cart' }}
+        options={{ 
+          presentation: 'modal',
+           title: 'Shopping Cart' }}
       />
       <Stack.Screen name='auth' options={{ headerShown: true }} />
     </Stack>
+    </ToastProvider>
+
   );
 }
