@@ -1,8 +1,8 @@
-import { Tabs } from "expo-router"
+import { Redirect,Tabs } from "expo-router"
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet } from "react-native";
+import { ActivityIndicator,StyleSheet } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';   // readymde icons
-
+import { useAuth } from "../../providers/auth-provider";
 //reusable component called TabBarIcon that takes in props and returns a FontAwesome icon with the specified name and color. The size of the icon is set to 24, and the color is overridden to '#1BC464' regardless of the color passed in props.
 function TabBarIcon( props: {
     name: React.ComponentProps<typeof FontAwesome>['name'];
@@ -13,6 +13,13 @@ function TabBarIcon( props: {
 
 
 const TabsLayout = () => {
+
+    const{session,mounting}= useAuth();
+
+    if(mounting) return <ActivityIndicator/>;
+    if(!session) return <Redirect href ='/auth'/>;
+
+
     return (
         <SafeAreaView edges={['top',]} style={Styles.safeArea}>
             <Tabs 
