@@ -4,9 +4,17 @@ import { Link } from 'expo-router';
 
 import { CATEGORIES } from '../../assets/categories';
 import { useCartStore } from '../store/cart-store';
+import { supabase } from '../lib/supabase';
 
 export const ListHeader = () => {
   const { getItemCount } = useCartStore();
+
+  const handleSignOut = async () => {
+    
+    await supabase.auth.signOut();
+
+  };
+
   return (
         <View style={[styles.headerContainer]}>
           <View style={styles.headerTop}>
@@ -42,7 +50,7 @@ export const ListHeader = () => {
                     )}
                 </Pressable>
               </Link>
-              <TouchableOpacity style={styles.signOutButton}>
+              <TouchableOpacity onPress={handleSignOut} style={styles.signOutButton}>
                 <FontAwesome name='sign-out' size={25} color='red' />
               </TouchableOpacity>
 
